@@ -1,0 +1,34 @@
+{
+  "tests": [
+    {
+      "name": "test_gems_per_player",
+      "setup": "sudo -H pip3 install pytest",
+      "run": "pytest test_lab_03.py::test_gems_per_player",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 5,
+      "points": 1
+    },
+    {
+      "name": "test_remainder",
+      "setup": "sudo -H pip3 install pytest",
+      "run": "pytest test_lab_03.py::test_remainder",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 5,
+      "points": 1
+    },
+    {
+      "name": "test_formatting",
+      "setup": "sudo -H pip3 install pytest",
+      "run": "pytest test_lab_03.py::test_formatting",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 5,
+      "points": 1
+    }
+  ]
+}

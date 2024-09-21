@@ -1,0 +1,41 @@
+name: GitHub Classroom Workflow
+
+on: [push]
+
+jobs:
+  build:
+    permissions: write-all
+    name: Autograding
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.3.0
+        with:
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+
+      # add id to action so outputs can be used
+      - uses: education/autograding@v1
+        id: autograder
+
+      # switch to badges branch
+      - name: Checkout badges branch
+        run: git checkout badges || git checkout -b badges
+        if: ${{ always() }}
+
+      # create points bar
+      - name: points bar
+        if: ${{ always() }}
+        uses: markpatterson27/points-bar@v1
+        with:
+          points: ${{ steps.autograder.outputs.points }}
+          path: '.github/badges/points-bar.svg'
+          label: 'Passing'
+
+      # commit and push badges if badges have changed
+      - name: Commit changes to points bar
+        if: ${{ always() }}
+        run: |
+          git config --global user.name 'Charlotte Curtis'
+          git config --global user.email 'ccurtis@mtroyal.ca'
+          git add '.github/badges/points-bar.svg'
+          git commit -m "Update test progress bar" || exit 0
+          git push origin badges
